@@ -1,0 +1,340 @@
+set,id,policy,question,guidance,avoid,category,answer,has_citation,said_not_found,unsafe_advice,judge_groundedness,judge_clause_accuracy,judge_simplicity,judge_risk_caution,judge_citation,judge_hallucination,keywords,answerable,keyword_recall
+generic60,QA-001,current_policy_nilgiri_arogya_basic.pdf,Is low premium always better?,Explain premium vs restrictions; do not give final advice.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,premium_value,"Low premium is not always better. A cheaper premium may mean lower coverage, higher co‑payment, or fewer benefits, so you should compare the whole policy, not just the price.
+
+**Key points**
+
+- Annual premium shown in the sample: Rs. 14,800 for a Rs. 5,00,000 sum insured on a family floater (2 adults + 1 child) [S2].
+- The policy offers a cumulative bonus of 10% of the sum insured per claim‑free year, up to 50%, which can increase the effective coverage over time [S3].
+- A 30‑day grace period is available for renewal premium payment; coverage stops if no premium is paid within that period [S1].
+- Co‑payment terms are defined but not specified in the excerpt; they affect out‑of‑pocket costs and do not reduce the sum insured [S4].
+- The policy is renewable for life unless fraud or misrepresentation occurs [S5].
+
+**Verify:** Confirm with the insurer whether a lower premium plan would reduce the sum insured, increase co‑payment percentages, or limit other benefits such as the cumulative bonus.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-003,current_policy_nilgiri_arogya_basic.pdf,Does this policy have restoration benefit?,Explain restoration and restrictions.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,restoration,"No, this policy does not provide a restoration benefit.  
+
+- Restoration benefit is explicitly stated as **not available** under the policy.  
+- Once the Sum Insured and Cumulative Bonus are exhausted, no further claims are payable in that policy year. [S1]  
+
+Verify: Confirm with the insurer that no restoration benefit is offered and ask how the policy handles claim limits after the Sum Insured is exhausted.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-004,current_policy_nilgiri_arogya_basic.pdf,What is the claim process?,Summarize cashless/reimbursement claim steps.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,claim_process,"The claim process involves three main steps:  
+
+1. **Cashless claims** – use the network hospital and call the TPA helpline within 24 h of an emergency or 48 h before a planned admission.  
+2. **Reimbursement claims** – submit the claim form, discharge summary, original bills, payment receipts, investigation reports and prescriptions within 30 days of discharge.  
+3. **Settlement** – the company will settle or reject the claim within 30 days of receiving the last required document; it may ask for extra documents and will pay only reasonable and customary charges.  
+
+**Key details**
+
+- Cashless claim notification: 24 h (emergency) / 48 h (planned) before admission – [S4]  
+- Reimbursement claim submission deadline: 30 days after discharge – [S3]  
+- Settlement/rejection time: 30 days from receipt of last document – [S2]  
+- Company may request additional documents at its discretion – [S2]  
+- Payment limited to reasonable and customary charges – [S2]  
+
+**Verify:** confirm the exact TPA helpline number and whether any additional documents are typically required for your specific treatment.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-005,current_policy_nilgiri_arogya_basic.pdf,Is maternity covered?,"Explain maternity coverage, waiting period, and limits.",Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,maternity,"No, maternity is not covered under this policy.  
+- Medical treatment expenses related to childbirth (including complicated deliveries and caesarean sections) are excluded.  
+- Expenses for miscarriage or termination of pregnancy are also excluded.  
+- New‑born baby expenses are not covered.  
+
+[Verify: Confirm with the insurer that maternity care is excluded and ask if any rider or separate plan can provide maternity coverage.]
+
+Sources: [S1] current_policy_nilgiri_arogya_basic.pdf, p.3, § E.15 Maternity - Code Excl18; [S2] current_policy_nilgiri_arogya_basic.pdf, p.1, § SECTION B - COVERAGE (WHAT IS COVERED); [S3] current_policy_nilgiri_arogya_basic.pdf, p.1, § 1.3 Pre-hospitalisation Expenses",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-007,current_policy_nilgiri_arogya_basic.pdf,Is ICU room rent separately limited?,Identify ICU cap or say not clearly found.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,icu_limit,"Yes – the policy limits ICU/ICCU expenses separately from regular room rent.
+
+- ICU/ICCU charges are payable up to **2 % of the Sum Insured** with a **maximum of Rs 10,000 per day**.  
+- Regular room rent, boarding and nursing expenses are capped at **1 % of the Sum Insured** with a **maximum of Rs 5,000 per day**.  
+- If you choose a room whose rent exceeds the eligible limit, all associated medical expenses will be reduced proportionately.  
+
+[S1]",True,False,False,5,5,5,4,5,False,,,
+generic60,QA-008,current_policy_nilgiri_arogya_basic.pdf,What is the waiting period for pre-existing diseases?,Extract exact months from policy wording and explain in simple language.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,waiting_period,"The policy does not cover treatment of pre‑existing diseases for the first 48 months after you first join the insurer.  
+
+**Key details**
+
+- Pre‑existing disease treatment is excluded until the expiry of **48 months** of continuous coverage after the first policy inception. [S1]  
+- Other specified conditions (e.g., cataract, hernia, joint replacement, kidney stones, sinusitis, benign prostatic hypertrophy) have a **24‑month** waiting period. [S2]  
+- Any illness treated within the first **30 days** of the policy is excluded, except for accident‑related claims. [S3]  
+
+**Verify:** Confirm with the insurer that the 48‑month waiting period applies to all pre‑existing diseases and that no additional exclusions or extensions apply.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-010,current_policy_nilgiri_arogya_basic.pdf,Can a child be covered under this policy?,Explain child coverage eligibility and conditions.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,child_coverage,"Yes, a child can be covered under this policy as a dependent.
+
+**Key details**
+
+- Dependent children aged **91 days to 25 years** can be covered under the floater along with at least one parent. [S2]  
+- The policy illustration shows a **family floater** covering **2 adults + 1 child**. [S3]  
+- The policy period is **1 year** and the sum insured is **Rs. 5,00,000** on the family floater basis. [S3]  
+
+**Verify:** Confirm the exact age limits for the child and whether any additional documentation is required to add a child to the floater.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-015,current_policy_nilgiri_arogya_basic.pdf,Should I buy this policy?,Do not give final advice; provide risk summary and advisor questions.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,decision_support,"**CoverWise does not make buy / switch / cancel decisions.** Here is what the document says so you can discuss it with a licensed advisor:
+
+**Short answer:**  
+The policy offers a family floater of ₹5 Lac with a yearly premium of ₹14,800, renewable for life and protected from contestability after 60 months. It may be a good fit if you want a low‑cost, long‑term coverage, but you should check the co‑payment, exclusions, and any limits that are not listed here.
+
+**Key details**
+
+- Sum insured: ₹5,00,000 on family floater (2 adults + 1 child) – [S1]  
+- Annual premium: ₹14,800 (incl. GST) – [S1]  
+- Policy period: 1 year, renewable for life – [S1], [S2]  
+- Renewal cannot be denied for a claim (except fraud/mis‑representation) – [S2]  
+- After 60 continuous months, policy and claims are non‑contestable (except fraud/permanent exclusions) – [S4]  
+- Co‑payment: 10% of admissible claim amount; 20% if insured ≥61 years at entry – [S5]  
+
+**What to ask the insurer**
+
+- What medical expenses are covered and what are the exclusions?  
+- Are there any limits on specific treatments or hospital stays?  
+- How does the co‑payment apply to different types of claims (e.g., outpatient vs. inpatient)?  
+- Are there any waiting periods for pre‑existing conditions?  
+- What is the process for claim settlement and how long does it take?  
+
+**Verify:**  
+Confirm the list of covered medical expenses, any exclusions, and the exact co‑payment application for your age group.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-020,current_policy_nilgiri_arogya_basic.pdf,What risks should I verify before switching policies?,"Mention waiting period, co-pay, room rent, exclusions, continuity benefits.",Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,switching,"**CoverWise does not make buy / switch / cancel decisions.** Here is what the document says so you can discuss it with a licensed advisor:
+
+**Answer**  
+Before switching, check that the new insurer will honour the waiting‑period credits, renewal terms, and any moratorium protections you currently have.
+
+**Key points to verify**
+
+- **Waiting‑period credit** – The current policy gives credit for waiting periods already served up to the existing sum insured if you port the policy at least 15 days before renewal. Confirm the new insurer will accept this credit and how it will be applied. [S1]  
+- **Renewal rights** – Your policy can be renewed for life and renewal will not be denied because of a claim (except fraud or misrepresentation). Ask the new insurer if they offer the same “no‑denial on claim” guarantee. [S2]  
+- **First‑30‑days waiting period** – Expenses for any illness within 30 days of policy start are excluded, except for accident‑related claims. Verify the new policy’s first‑30‑day waiting period and whether it differs. [S3]  
+- **Specified disease waiting period** – Certain conditions (cataract, hernia, joint replacement, kidney stones, sinusitis, benign prostatic hypertrophy) are excluded for 24 months after the first policy start. Check if the new insurer has the same 24‑month waiting period for these conditions. [S4]  
+- **Moratorium period** – After 60 continuous months of coverage, claims cannot be contested except for fraud or permanent exclusions. Confirm whether the new insurer offers a similar 60‑month moratorium. [S5]  
+
+**Verify:**  
+Confirm with the insurer/advisor that the new policy will accept the waiting‑period credit, provide the same renewal guarantee, and maintain equivalent waiting‑period and moratorium terms.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-025,current_policy_nilgiri_arogya_basic.pdf,Is co-payment applicable in this policy?,State the co-pay percentage and when it applies.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,copayment,"Yes – every claim in this policy is subject to a co‑payment.  
+
+**Key details**
+
+- Standard co‑payment: **10 %** of the admissible claim amount.  
+- For insured persons aged **61 years and above at entry**: co‑payment is **20 %**.  
+- Co‑payment is a cost‑sharing requirement and does **not reduce the Sum Insured**.  
+
+Sources: [S1], [S3]  
+
+Verify: confirm the age of the insured at entry to determine the correct co‑payment rate.",True,False,False,5,5,5,5,5,False,,,
+generic60,QA-034,current_policy_nilgiri_arogya_basic.pdf,What are the major exclusions?,List exclusion categories only from the document.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,exclusion,"The policy does not cover certain conditions and activities.  
+**Major exclusions** include:  
+
+- **Alcoholism and drug abuse** – treatment for alcoholism, drug or substance abuse or any addictive condition and its consequences are excluded. [S3]  
+- **Hazardous or adventure sports** – expenses related to treatment caused by participation as a professional in hazardous or adventure sports are excluded. [S5]  
+
+Not clearly found in the uploaded document.  
+**Verify:** Ask the insurer for a complete list of all exclusions and any additional conditions that may apply.",True,True,False,3,5,5,5,5,False,,,
+generic60,QA-038,current_policy_nilgiri_arogya_basic.pdf,Is there any room rent limit?,Identify room rent cap or say not clearly found.,Do not invent missing terms. Do not say buy/switch/cancel as final advice. Ask user to verify with insurer/advisor when unclear.,room_rent,"Yes – the policy limits room rent to **1 % of the Sum Insured, capped at Rs 5,000 per day**.  
+
+**Key details**  
+- Room rent, boarding and nursing expenses are covered up to 1 % of the Sum Insured.  
+- The daily maximum payable is Rs 5,000.  
+- If a room is chosen with rent higher than this limit, all associated medical expenses are reduced proportionately.  
+
+Sources: [S1]  
+
+Verify: confirm the Sum Insured amount to calculate the 1 % limit for your specific policy.",True,False,False,5,5,5,5,5,False,,,
+policy_specific,SP-01,current_policy_nilgiri_arogya_basic.pdf,Is co-payment applicable in this policy?,Yes. 10% co-payment on every claim; 20% for insured persons aged 61+ at entry.,Do not invent terms or give buy/switch advice.,,"Yes – every claim in this policy is subject to a co‑payment.
+
+**Key details**
+
+- Standard co‑payment: **10 %** of the admissible claim amount.  
+- For insured persons aged **61 years and above at entry**: co‑payment is **20 %**.  
+- Co‑payment is a cost‑sharing requirement and does **not reduce the Sum Insured**.  
+
+Sources: [S1], [S3]",True,False,False,5,5,5,5,5,False,10%|co-payment,yes,0.0
+policy_specific,SP-02,current_policy_nilgiri_arogya_basic.pdf,Is room rent capped?,"Yes. Room rent up to 1% of sum insured, max Rs 5,000 per day; proportionate deduction applies.",Do not invent terms or give buy/switch advice.,,"Yes – the policy limits room rent to a maximum of 1 % of the Sum Insured, but no more than Rs 5,000 per day.  
+
+**Key details**  
+- Room rent, boarding and nursing expenses are capped at **1 % of the Sum Insured**.  
+- The daily maximum for room rent is **Rs 5,000**.  
+- If a higher‑priced room is chosen, all related medical expenses are reduced proportionately.  
+
+[S1]",True,False,False,5,5,5,4,5,False,"1%|5,000",yes,0.5
+policy_specific,SP-03,current_policy_nilgiri_arogya_basic.pdf,Is ICU room rent separately limited?,"Yes. ICU/ICCU up to 2% of sum insured, max Rs 10,000 per day.",Do not invent terms or give buy/switch advice.,,"Yes – the policy limits ICU/ICCU expenses separately from regular room rent.  
+
+**Key limits**
+
+- ICU/ICCU charges are payable up to **2 % of the Sum Insured**.  
+- The daily maximum for ICU/ICCU is **Rs. 10,000** per day.  
+- Regular room rent, boarding and nursing expenses are capped at **1 % of the Sum Insured** with a daily maximum of **Rs. 5,000**.  
+- If a room is chosen with rent higher than the eligible limit, all associated medical expenses are reduced proportionately.  
+
+[S1]",True,False,False,5,5,5,5,5,False,"2%|10,000",yes,0.5
+policy_specific,SP-04,current_policy_nilgiri_arogya_basic.pdf,What is the waiting period for pre-existing diseases?,48 months of continuous coverage.,Do not invent terms or give buy/switch advice.,,"The policy does not cover treatment of pre‑existing diseases for the first 48 months after you first start a policy with this insurer.  
+
+**Key details**
+
+- 48 months (4 years) of continuous coverage after the first policy inception are required before any claim for a pre‑existing disease is paid.  
+- This waiting period applies to all pre‑existing diseases and their direct complications.  
+- The waiting period is independent of other waiting periods (e.g., 24 months for specified diseases, 30 days for any illness).  
+
+[S1]  
+
+**Verify:** Confirm with the insurer that the 48‑month waiting period applies to all pre‑existing conditions and that no additional exclusions or conditions apply.",True,False,False,5,5,5,5,5,False,48,yes,1.0
+policy_specific,SP-05,current_policy_nilgiri_arogya_basic.pdf,Does this policy have restoration benefit?,No. Restoration benefit is not available.,Do not invent terms or give buy/switch advice.,,"No, this policy does not provide a restoration benefit.  
+
+- The policy explicitly states that “Restoration benefit is not available under this policy” [S1].  
+- Once the Sum Insured and Cumulative Bonus are exhausted, no further claims are payable in that policy year [S1].  
+
+Verify: confirm with the insurer that no restoration benefit is offered and ask if any alternative riders or add‑ons could provide a similar feature.",True,False,False,5,5,5,5,5,False,not available,yes,1.0
+policy_specific,SP-06,current_policy_nilgiri_arogya_basic.pdf,Is maternity covered?,No. Maternity is excluded (Excl18).,Do not invent terms or give buy/switch advice.,,"No, maternity expenses are not covered under this policy.  
+
+- Medical treatment expenses related to childbirth (including complicated deliveries and caesarean sections) are excluded.  
+- Expenses for miscarriage or termination of pregnancy are also excluded.  
+- New‑born baby expenses are not covered.  
+
+[Source: S1]  
+
+Verify: Ask the insurer to confirm that maternity and newborn-related costs are indeed excluded and whether any optional riders or separate plans cover these expenses.
+
+Sources: [S1] current_policy_nilgiri_arogya_basic.pdf, p.3, § E.15 Maternity - Code Excl18; [S2] current_policy_nilgiri_arogya_basic.pdf, p.1, § SECTION B - COVERAGE (WHAT IS COVERED); [S3] current_policy_nilgiri_arogya_basic.pdf, p.1, § 1.3 Pre-hospitalisation Expenses",True,False,False,5,5,5,5,5,False,excl18|childbirth,yes,1.0
+policy_specific,SP-07,current_policy_nilgiri_arogya_basic.pdf,Can a child be covered under this policy?,Yes. Dependent children aged 91 days to 25 years under the floater.,Do not invent terms or give buy/switch advice.,,"Yes, a child can be covered under this policy as a dependent on the family floater plan.
+
+**Key details**
+
+- Dependent children aged **91 days to 25 years** can be covered along with at least one parent. [S2]  
+- The family floater covers **2 adults + 1 child**. [S3]  
+- The policy is a family floater with a sum insured of Rs. 5,00,000. [S3]  
+- The policy period is 1 year and the annual premium is Rs. 14,800 (incl. GST). [S3]  
+
+**Verify:** Confirm the exact age limits for the child and whether any additional documentation is required to add a child to the floater.",True,False,False,5,5,5,5,5,False,91 days|25 years,yes,1.0
+policy_specific,SP-08,current_policy_nilgiri_arogya_basic.pdf,What are the sub-limits for cataract?,"25% of sum insured or Rs 40,000 per eye, whichever is lower.",Do not invent terms or give buy/switch advice.,,"Cataract treatment is capped at the lower of 25 % of the Sum Insured or ₹40,000 per eye.  
+
+- Sub‑limit: 25 % of Sum Insured **or** ₹40,000 per eye, whichever is lower.  
+- Applies per policy year.  
+- Cataract is also a waiting‑period condition – treatment is excluded for 24 months after the first policy start.  
+
+[Verify: Confirm the Sum Insured amount to calculate the 25 % figure and ask the insurer about the exact waiting‑period start date.]
+
+Sources: [S1] current_policy_nilgiri_arogya_basic.pdf, p.2, § 2.2 Disease-wise Sub-limits; [S2] current_policy_nilgiri_arogya_basic.pdf, p.2, § SECTION C - CO-PAYMENT AND SUB-LIMITS; [S3] current_policy_nilgiri_arogya_basic.pdf, p.3, § E.12 Refractive error - Code Excl15",True,False,False,5,5,5,5,5,False,"40,000|25%",yes,0.5
+policy_specific,SP-09,current_policy_nilgiri_arogya_basic.pdf,What is the claim process?,"Cashless at network hospitals, intimation within 24h (emergency) / 48h (planned); reimbursement documents within 30 days; settlement within 30 days.",Do not invent terms or give buy/switch advice.,,"The claim process involves filing a claim form and required documents, then the insurer will review and settle or reject it within 30 days.
+
+**Key steps & conditions**
+
+- **Cashless claims**: Available only at network hospitals.  
+  - Intimate the claim within 24 hrs of an emergency admission and at least 48 hrs before a planned admission via the TPA helpline. [S4]  
+- **Reimbursement claims**:  
+  - Submit claim form, discharge summary, original bills, payment receipts, investigation reports, and prescriptions within 30 days of discharge. [S3]  
+- **Settlement**:  
+  - The Company will settle or reject a claim within 30 days from receipt of the last necessary document.  
+  - The Company may request additional documents at its discretion.  
+  - Payment is limited to reasonable and customary charges for the treatment. [S2]  
+- **Co‑payment**:  
+  - Each claim is subject to a 10 % co‑payment of the admissible claim amount (20 % for insured persons aged 61+ at entry). [S5]  
+
+Verify: Confirm the exact documents required for your specific claim type and whether any additional documents may be requested.",True,False,False,5,5,4,4,5,False,24 hours|30 days,yes,0.5
+policy_specific,SP-10,current_policy_nilgiri_arogya_basic.pdf,What is the claim settlement ratio of this insurer?,Not stated in the document.,Do not invent terms or give buy/switch advice.,,"Not clearly found in the uploaded document.  
+Ask the insurer for the most recent claim settlement ratio (e.g., the percentage of claims paid versus claims received) and the period it covers.  
+
+Verify: the insurer’s claim settlement ratio and the time frame it represents.",False,True,False,5,5,5,5,5,False,,no,
+policy_specific,SP-11,proposed_policy_nilgiri_arogya_plus.pdf,Is co-payment applicable in this policy?,No general co-payment; 15% only when treated in a Zone A city with a Zone B premium.,Do not invent terms or give buy/switch advice.,,"Yes, the policy does not require a co‑payment in most cases, but a 15 % co‑payment applies if you receive treatment in a Zone A city while the premium was paid for a Zone B city.  
+
+**Key points**
+
+- No co‑payment under the policy for any insured person, regardless of age.  
+- If treatment is taken in a Zone A city when the premium was paid for Zone B, a 15 % co‑payment applies to that claim.  
+- The co‑payment does not reduce the Sum Insured.  
+
+[S1]  
+
+**Verify:** Confirm with the insurer whether your current premium is for Zone B and whether you will be receiving treatment in a Zone A city.",True,False,False,5,5,5,5,5,False,no co-payment|15%,yes,0.0
+policy_specific,SP-12,proposed_policy_nilgiri_arogya_plus.pdf,Is room rent capped?,No capping on room rent; any room except a suite.,Do not invent terms or give buy/switch advice.,,"Room rent is **not capped** – you can choose any room category (except a suite) and the insurer will pay the actual room rent charges.
+
+**Key points**
+
+- No cap on room rent: the policy covers the actual amount charged by the hospital for room and boarding, except suites.  
+- ICU/ICCU charges are payable at actuals up to the Sum Insured.  
+- There is no co‑payment for room rent unless you receive treatment in a Zone A city while the premium was paid for Zone B, in which case a 15 % co‑payment applies to that claim.  
+
+[S1]  
+
+**Verify:** Confirm with the insurer whether any additional limits or exclusions apply to room rent beyond what is stated above.",True,False,False,5,5,5,4,5,False,no capping,yes,0.0
+policy_specific,SP-13,proposed_policy_nilgiri_arogya_plus.pdf,Does this policy have restoration benefit?,Yes. 100% of base sum insured restored once a year.,Do not invent terms or give buy/switch advice.,,"Yes – the policy includes a restoration benefit that can bring the Sum Insured back to its original level after it has been exhausted during a policy year.  
+
+**Key details**
+
+- If the Sum Insured is exhausted during the policy year, 100 % of the base Sum Insured is restored once in that policy year for subsequent claims for any illness or injury. [S1]  
+
+**Verify:** Ask the insurer to confirm the exact timing and any conditions that may affect the restoration (e.g., whether it applies to all types of claims or only specific ones).",True,False,False,5,5,5,5,5,False,100%|restored,yes,0.5
+policy_specific,SP-14,proposed_policy_nilgiri_arogya_plus.pdf,Is maternity covered?,"Yes after 24 months; up to Rs 50,000 normal / Rs 75,000 caesarean; two deliveries.",Do not invent terms or give buy/switch advice.,,"Yes, maternity is covered after a 24‑month waiting period.  
+
+**Key details**  
+- **Waiting period:** 24 months of continuous coverage for the female insured [S2].  
+- **Coverage limits:**  
+  - Normal delivery: up to ₹50,000 [S1].  
+  - Caesarean section: up to ₹75,000 [S1].  
+  - New‑born baby expenses: up to ₹25,000 within the maternity limit, starting from day one of birth [S1].  
+- **Lifetime limit:** Only two deliveries are covered during the policy’s lifetime [S1].  
+
+Verify: confirm the exact waiting‑period start date and whether any additional conditions apply to the maternity benefit.",True,False,False,5,5,5,5,5,False,"24 months|50,000",yes,1.0
+policy_specific,SP-15,proposed_policy_nilgiri_arogya_plus.pdf,Does the policy cover newborn baby?,"Yes from day one up to Rs 25,000 within the maternity limit; can be added as a child from day 91.",Do not invent terms or give buy/switch advice.,,"Yes, the policy does cover a newborn baby.  
+
+- Newborn baby expenses are covered from day 1 up to Rs. 25,000 within the maternity limit.  
+- The baby can be added as a dependent child only after the 91st day of life.  
+- Maternity benefits (including newborn coverage) are payable only after a 24‑month waiting period for the female insured.  
+
+[ S1 ] [ S2 ] [ S3 ]  
+
+Verify: confirm the exact age at which the newborn can be added as a dependent and the effective start date of the 24‑month waiting period.
+
+Sources: [S1] proposed_policy_nilgiri_arogya_plus.pdf, p.2, § 1.11 Maternity and New Born Cover; [S2] proposed_policy_nilgiri_arogya_plus.pdf, p.1, § ELIGIBILITY; [S3] proposed_policy_nilgiri_arogya_plus.pdf, p.2, § D.4 Maternity Waiting Period",True,False,False,5,5,5,5,5,False,"25,000|new born",yes,1.0
+policy_specific,SP-16,proposed_policy_nilgiri_arogya_plus.pdf,What is the waiting period for pre-existing diseases?,36 months of continuous coverage.,Do not invent terms or give buy/switch advice.,,"The waiting period for pre‑existing diseases is 36 months of continuous coverage from the first policy start date.  
+
+- 36 months continuous coverage after the first policy inception before any pre‑existing disease claim is paid. [S1]  
+
+Verify: confirm that the 36‑month period applies to all pre‑existing conditions and that no additional exclusions apply.",True,False,False,5,5,5,5,5,False,36,yes,1.0
+policy_specific,SP-17,proposed_policy_nilgiri_arogya_plus.pdf,Is OPD covered?,No. OPD / out-patient consultation is not covered.,Do not invent terms or give buy/switch advice.,,"OPD (out‑patient) visits are **not covered** under this policy.  
+
+- OPD and out‑patient consultation expenses are explicitly excluded. [S1]  
+
+Verify: confirm with the insurer that no separate rider or add‑on covers OPD expenses.",True,False,False,5,5,5,5,5,False,not covered,yes,1.0
+policy_specific,SP-18,proposed_policy_nilgiri_arogya_plus.pdf,What is the no claim bonus?,"50% of base sum insured per claim-free year, up to 100%.",Do not invent terms or give buy/switch advice.,,"The policy gives a **no‑claim bonus of 50 % of the base Sum Insured for each claim‑free year, up to a maximum of 100 %**.  
+
+- 50 % bonus added per claim‑free policy year.  
+- Bonus capped at 100 % of the base Sum Insured.  
+
+[ S1 ]  
+
+Verify: confirm the exact base Sum Insured amount and whether the 100 % cap applies to each policy year or overall.
+
+Sources: [S1] proposed_policy_nilgiri_arogya_plus.pdf, p.2, § 1.8 No Claim Bonus; [S2] proposed_policy_nilgiri_arogya_plus.pdf, p.3, § SECTION F - CLAIM PROCEDURE; [S3] proposed_policy_nilgiri_arogya_plus.pdf, p.4, § G.4 Moratorium Period",True,False,False,5,5,5,5,5,False,50%|100%,yes,0.0
+policy_specific,SP-19,proposed_policy_nilgiri_arogya_plus.pdf,Does this policy cover treatment taken in the USA?,Not stated in the document.,Do not invent terms or give buy/switch advice.,,"Not clearly found in the uploaded document.  
+Ask the insurer whether the policy includes coverage for treatment received abroad, specifically in the USA, and what any additional conditions or exclusions might apply.  
+
+Verify: confirm whether overseas (USA) treatment is covered and under what terms.",False,True,False,3,3,4,5,0,False,,no,
+policy_specific,SP-20,proposed_policy_nilgiri_arogya_plus.pdf,Should I buy this policy?,"No buy/switch verdict; strengths, caution points and advisor questions.",Do not invent terms or give buy/switch advice.,,"**CoverWise does not make buy / switch / cancel decisions.** Here is what the document says so you can discuss it with a licensed advisor:
+
+**Short answer:**  
+The policy offers a high sum insured with no co‑payment (except a 15 % charge for Zone A treatment when paid for Zone B), renewable for life, and a generous no‑claim bonus. It could be a good fit if you want comprehensive coverage and value the renewal guarantee, but you should confirm details about exclusions, claim limits, and the exact conditions for the 15 % co‑payment.
+
+**Key details**
+
+- **Sum insured:** ₹10,00,000 on a family floater basis (2 adults + 1 child) – [S1]  
+- **Annual premium:** ₹21,600 (incl. GST) – [S1]  
+- **Policy period:** 1 year (renewable for life) – [S1], [S3]  
+- **Co‑payment:** None generally; 15 % co‑payment if treatment is in a Zone A city while the premium was paid for Zone B – [S2]  
+- **Renewal:** Policy renewable for life; renewal not denied for claims (except fraud/misrepresentation) – [S3]  
+- **No‑claim bonus:** 50 % of base sum insured added each claim‑free year, up to 100 % – [S5]  
+
+**Strengths**
+
+- High coverage amount for a modest premium.  
+- No co‑payment in most cases, reducing out‑of‑pocket costs.  
+- Lifetime renewal guarantee (except fraud).  
+- Attractive no‑claim bonus that can double the sum insured over time.
+
+**Caution points**
+
+- The 15 % co‑payment applies only when treatment is in a Zone A city but the premium was paid for Zone B; verify which zones your usual hospitals fall into.  
+- The policy may have exclusions and limits not listed in the excerpt; these could affect coverage for certain conditions or treatments.  
+- The no‑claim bonus is capped at 100 % of the base sum insured; it will not increase the sum insured beyond ₹10,00,000.
+
+**Questions to ask the insurer / advisor**
+
+- What medical conditions or treatments are excluded?  
+- Are there any limits on specific procedures or hospital stays?  
+- How is the 15 % co‑payment calculated and applied?  
+- What is the exact process for claiming and receiving the no‑claim bonus?  
+- Are there any additional riders or optional coverages available?
+
+**Verify:**  
+Confirm the list of exclusions, the exact zones for co‑payment applicability, and the claim process for the no‑claim bonus.",True,False,False,5,5,5,5,5,False,advisor,decision,1.0
