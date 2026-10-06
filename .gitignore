@@ -1,0 +1,29 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+# large / private data
+data/raw/acko_dataset_modified*.csv
+data/private/
+uploads/
+*.log
+# generated outputs (sample reports are kept)
+reports/*.pdf
+!reports/sample_*.pdf
+
+# real insurer documents (download links in docs/DATA_SOURCES.md)
+data/sample_policies/policy-wordings-arogya-sanjeevani-policy.pdf
+data/sample_policies/optima-secure-revision-pw.pdf
+data/sample_policies/cis---myoptimasecure.pdf
+# local logs / misc
+reports/*.log
+
+# real insurer documents (download links in docs/DATA_SOURCES.md)
+data/sample_policies/policy-wordings-arogya-sanjeevani-policy.pdf
+data/sample_policies/optima-secure-revision-pw.pdf
+data/sample_policies/cis---myoptimasecure.pdf
+# local logs / misc
+reports/*.log

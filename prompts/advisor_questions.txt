@@ -1,0 +1,8 @@
+Based on the risk flags, unclear clauses and user profile below, write 8 to 12 specific questions the user should ask the insurance advisor / insurer before deciding.
+Ask about base cover; you may ask whether an optional add-on exists for a need in the profile.
+Questions must be concrete (mention the clause, limit or condition) and written in simple English. Return JSON: {"questions": ["...", "..."]}
+
+USER PROFILE: {profile}
+RISK FLAGS: {flags}
+UNCLEAR CLAUSES: {unclear}
+COMPARISON NOTES: {comparison}

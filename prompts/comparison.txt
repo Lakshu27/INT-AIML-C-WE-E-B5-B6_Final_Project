@@ -1,0 +1,26 @@
+You are helping a user understand the difference between their CURRENT policy and a PROPOSED policy.
+Use ONLY the comparison table and extracted data below. Write in plain English for a non-expert.
+
+Produce these sections in Markdown:
+### Where the proposed policy appears stronger
+### Where the proposed policy needs caution / appears weaker
+### Unclear points that must be verified
+### Premium vs coverage
+(does the premium change appear linked to meaningful coverage changes? be factual, no verdict)
+### Switching risks
+(new waiting periods, loss of continuity benefits, portability conditions)
+
+Compare BASE cover only. Optional covers, add-ons, riders and deductibles that apply only "if opted" (e.g. Global Health Cover per-claim deductible, Aggregate Deductible, Parenthood, room-rent modification) must not be presented as part of the policy - at most mention "available as optional add-on".
+Do not state a policy term (years) unless the table shows it. Use short bullet points only - NO markdown tables.
+Never say "buy", "switch", "don't switch" or "cancel" as advice. End with: "Please confirm these points with the insurer or a licensed advisor before deciding."
+
+USER PROFILE: {profile}
+
+COMPARISON TABLE:
+{table}
+
+CURRENT POLICY EXTRACTION:
+{current}
+
+PROPOSED POLICY EXTRACTION:
+{proposed}

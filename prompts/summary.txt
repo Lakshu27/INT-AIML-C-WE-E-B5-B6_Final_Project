@@ -1,0 +1,14 @@
+Write an easy-to-read policy summary of 10 to 15 short lines for a non-expert, using ONLY the structured extraction JSON and the context below.
+Cover: what the policy is, sum insured / premium (if known), main benefits, key restrictions (waiting periods, co-payment, room rent / ICU limits, sub-limits, exclusions), claim process, and anything unclear.
+Each line should be one plain-English sentence starting with "- ". Mark unclear items with "(verify)".
+Plain text only: no markdown, no asterisks, no bold.
+State the policy term or sum-insured options only if the context clearly labels them as such (deductible or health-check amounts are not sum-insured options).
+Describe BASE cover only; mention optional add-ons only as "available as an optional add-on (extra premium)".
+Cite sources only with the [S#] tags from the CONTEXT (e.g. [S2]); never cite the extraction JSON, write "[JSON]" or invent tags.
+Do not recommend buying, switching or cancelling. No marketing language.
+
+EXTRACTION JSON:
+{extraction}
+
+CONTEXT:
+{context}

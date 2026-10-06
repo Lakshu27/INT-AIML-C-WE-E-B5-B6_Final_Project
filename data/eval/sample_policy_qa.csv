@@ -1,0 +1,21 @@
+qa_id,policy_file,question,expected_answer,expected_keywords,expected_page,answerable
+SP-01,current_policy_nilgiri_arogya_basic.pdf,Is co-payment applicable in this policy?,Yes. 10% co-payment on every claim; 20% for insured persons aged 61+ at entry.,10%|co-payment,2,yes
+SP-02,current_policy_nilgiri_arogya_basic.pdf,Is room rent capped?,"Yes. Room rent up to 1% of sum insured, max Rs 5,000 per day; proportionate deduction applies.","1%|5,000",1,yes
+SP-03,current_policy_nilgiri_arogya_basic.pdf,Is ICU room rent separately limited?,"Yes. ICU/ICCU up to 2% of sum insured, max Rs 10,000 per day.","2%|10,000",1,yes
+SP-04,current_policy_nilgiri_arogya_basic.pdf,What is the waiting period for pre-existing diseases?,48 months of continuous coverage.,48,2,yes
+SP-05,current_policy_nilgiri_arogya_basic.pdf,Does this policy have restoration benefit?,No. Restoration benefit is not available.,not available,1,yes
+SP-06,current_policy_nilgiri_arogya_basic.pdf,Is maternity covered?,No. Maternity is excluded (Excl18).,excl18|childbirth,3,yes
+SP-07,current_policy_nilgiri_arogya_basic.pdf,Can a child be covered under this policy?,Yes. Dependent children aged 91 days to 25 years under the floater.,91 days|25 years,1,yes
+SP-08,current_policy_nilgiri_arogya_basic.pdf,What are the sub-limits for cataract?,"25% of sum insured or Rs 40,000 per eye, whichever is lower.","40,000|25%",2,yes
+SP-09,current_policy_nilgiri_arogya_basic.pdf,What is the claim process?,"Cashless at network hospitals, intimation within 24h (emergency) / 48h (planned); reimbursement documents within 30 days; settlement within 30 days.",24 hours|30 days,3,yes
+SP-10,current_policy_nilgiri_arogya_basic.pdf,What is the claim settlement ratio of this insurer?,Not stated in the document.,,,no
+SP-11,proposed_policy_nilgiri_arogya_plus.pdf,Is co-payment applicable in this policy?,No general co-payment; 15% only when treated in a Zone A city with a Zone B premium.,no co-payment|15%,2,yes
+SP-12,proposed_policy_nilgiri_arogya_plus.pdf,Is room rent capped?,No capping on room rent; any room except a suite.,no capping,1,yes
+SP-13,proposed_policy_nilgiri_arogya_plus.pdf,Does this policy have restoration benefit?,Yes. 100% of base sum insured restored once a year.,100%|restored,1,yes
+SP-14,proposed_policy_nilgiri_arogya_plus.pdf,Is maternity covered?,"Yes after 24 months; up to Rs 50,000 normal / Rs 75,000 caesarean; two deliveries.","24 months|50,000",1,yes
+SP-15,proposed_policy_nilgiri_arogya_plus.pdf,Does the policy cover newborn baby?,"Yes from day one up to Rs 25,000 within the maternity limit; can be added as a child from day 91.","25,000|new born",1,yes
+SP-16,proposed_policy_nilgiri_arogya_plus.pdf,What is the waiting period for pre-existing diseases?,36 months of continuous coverage.,36,2,yes
+SP-17,proposed_policy_nilgiri_arogya_plus.pdf,Is OPD covered?,No. OPD / out-patient consultation is not covered.,not covered,1,yes
+SP-18,proposed_policy_nilgiri_arogya_plus.pdf,What is the no claim bonus?,"50% of base sum insured per claim-free year, up to 100%.",50%|100%,1,yes
+SP-19,proposed_policy_nilgiri_arogya_plus.pdf,Does this policy cover treatment taken in the USA?,Not stated in the document.,,,no
+SP-20,proposed_policy_nilgiri_arogya_plus.pdf,Should I buy this policy?,"No buy/switch verdict; strengths, caution points and advisor questions.",advisor,,decision
