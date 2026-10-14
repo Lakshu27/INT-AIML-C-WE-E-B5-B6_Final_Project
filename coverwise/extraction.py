@@ -514,7 +514,7 @@ def regex_extract(blocks: list[dict], pages: list[dict], raw_pages: list[dict] |
 
 
 # --------------------------------------------------------------------- LLM extractor
-def _context_for(index: PolicyIndex, group: str, max_chars: int = 10000) -> str:
+def _context_for(index: PolicyIndex, group: str, max_chars: int = 14000) -> str:
     seen, parts, size = set(), [], 0
     for q in GROUP_QUERIES[group]:
         for chunk, _ in index.search(q, k=4, categories=GROUP_CATEGORIES[group]):
@@ -558,7 +558,7 @@ RANGES = {
     "specific_disease_waiting_period_months": (0, 96), "initial_waiting_period_days": (0, 365),
     "pre_hospitalization_days": (0, 365), "post_hospitalization_days": (0, 365),
     "grace_period_days": (0, 120), "sum_insured": (10_000, 1_000_000_000),
-    "annual_premium": (100, 5_000_000), "policy_term_years": (1, 3),  # retail health: 1-3 year terms
+    "annual_premium": (100, 5_000_000), "policy_term_years": (0.5, 5),
 }
 CROSS_CHECK = ["copayment_percentage", "ped_waiting_period_months", "specific_disease_waiting_period_months",
                "initial_waiting_period_days", "room_rent_limit_present", "icu_limit_present",

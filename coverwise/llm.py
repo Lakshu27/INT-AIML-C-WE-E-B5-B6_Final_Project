@@ -61,9 +61,7 @@ class LLMClient:
         if not self.available:
             raise LLMError("No LLM configured")
         last_exc = None
-        attempt = 0
-        while attempt < retries:
-            attempt += 1
+        for attempt in range(retries):
             try:
                 self.calls += 1
                 if self.provider == "groq":
@@ -88,28 +86,12 @@ class LLMClient:
                 )
                 resp = self.client.models.generate_content(model=self.model, contents=user, config=cfg)
                 return resp.text or ""
-            except Exception as exc:
+            except Exception as exc:  # rate limit / transient errors
                 last_exc = exc
-                msg = str(exc)
-                low = msg.lower()
-                # daily quota exhausted -> switch once to the fallback model (separate quota), no waiting
-                if "429" in msg and ("per day" in low or "tpd" in low or "rpd" in low):
-                    fb = config.GROQ_FALLBACK_MODEL if self.provider == "groq" else ""
-                    if fb and fb != self.model:
-                        log.warning("Daily limit reached for %s - switching to %s", self.model, fb)
-                        self.model = fb
-                        attempt -= 1  # the switch itself is not a failed attempt
-                        continue
-                    break
-                # permanent errors (bad key / unknown model) -> stop immediately
-                if any(code in msg for code in ("401", "403", "404", "invalid_api_key", "model_not_found")):
-                    break
-                # per-minute rate limit: wait as long as the API asks (max 20 s), else exponential backoff
-                m = re.search(r"try again in ([\d.]+)s", low)
-                wait = min(float(m.group(1)) + 0.5, 20) if m else 2 ** attempt
-                log.warning("LLM call failed (%s). Retrying in %.1fs", msg[:160], wait)
+                wait = 2 ** attempt * 2
+                log.warning("LLM call failed (%s). Retrying in %ss", exc, wait)
                 time.sleep(wait)
-        raise LLMError(f"LLM call failed after {attempt} attempt(s) on {self.model}: {last_exc}")
+        raise LLMError(f"LLM call failed after {retries} attempts: {last_exc}")
 
     def chat_json(self, system: str, user: str, max_tokens: int = 2048) -> dict:
         raw = self.chat(system, user + "\n\nReturn ONLY valid JSON.", json_mode=True,

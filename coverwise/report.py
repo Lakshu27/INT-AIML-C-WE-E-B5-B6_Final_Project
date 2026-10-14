@@ -4,7 +4,7 @@ from __future__ import annotations
 import datetime as dt
 import io
 import re
-from xml.sax.saxutils import escape
+from xml.sax.saxutils import escape as _xml_escape
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER
@@ -15,6 +15,30 @@ from reportlab.platypus import (KeepTogether, PageBreak, Paragraph, SimpleDocTem
                                 Table, TableStyle)
 
 from . import config
+
+# Built-in PDF fonts (Helvetica) have no glyph for the rupee sign or Unicode hyphens/dashes,
+# which otherwise print as black boxes. Normalise them before rendering.
+_CHAR_MAP = {
+    "\u20b9": "Rs ",                      # rupee sign
+    "\u2010": "-", "\u2011": "-", "\u2012": "-", "\u2212": "-",
+    "\u2013": "-", "\u2014": " - ", "\u2015": " - ",
+    "\u00a0": " ", "\u202f": " ", "\u2009": " ", "\u200a": " ", "\u2007": " ",
+    "\u200b": "", "\u2060": "", "\ufeff": "",
+    "\u2192": "->", "\u2190": "<-", "\u2264": "<=", "\u2265": ">=", "\u00d7": "x",
+}
+
+
+def _clean(text) -> str:
+    s = str(text)
+    for k, v in _CHAR_MAP.items():
+        s = s.replace(k, v)
+    s = re.sub(r"Rs\s+(?=\d)", "Rs ", s)
+    return s
+
+
+def escape(text) -> str:
+    return _xml_escape(_clean(text))
+
 
 BRAND = colors.HexColor("#0F4C81")
 LABEL_COLORS = {"Strong Coverage": "#1B7F3B", "Moderate Coverage": "#2F6DB5",
@@ -35,63 +59,74 @@ S = {
 }
 
 
-_CHAR_MAP = {"\u20b9": "Rs ", "\u2010": "-", "\u2011": "-", "\u2012": "-", "\u2212": "-",
-             "\u00a0": " ", "\u202f": " ", "\u2009": " ", "\u200b": "", "\u3010": "[", "\u3011": "]",
-             "\u2264": "<=", "\u2265": ">=", "\u2192": "->", "\u2248": "~"}
-
-
-def _clean(text) -> str:
-    """Make text printable with the built-in PDF font (no missing-glyph boxes)."""
-    text = str(text)
-    for k, v in _CHAR_MAP.items():
-        text = text.replace(k, v)
-    return text.encode("cp1252", "replace").decode("cp1252").replace("?", "?")
-
-
-def _rich(text: str) -> str:
-    """Escape + convert **bold** markdown; drop unmatched asterisks."""
-    safe = escape(_clean(text))
-    safe = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", safe)
-    return safe.replace("**", "").replace("`", "")
-
-
 def _p(text, style="body"):
-    return Paragraph(_rich(text), S[style])
+    return Paragraph(escape(str(text)), S[style])
+
+
+_CONTENT_WIDTH = A4[0] - 32 * mm
+
+
+def _md_inline(line: str) -> str:
+    safe = escape(line)
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", safe)
+
+
+def _md_table(lines: list[str]):
+    """Render a Markdown pipe table (as LLMs often return) as a real PDF table."""
+    rows = []
+    for ln in lines:
+        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if all(re.fullmatch(r":?-{2,}:?", c) for c in cells if c):
+            continue  # separator row |---|---|
+        rows.append(cells)
+    if not rows:
+        return None
+    n = max(len(r) for r in rows)
+    rows = [r + [""] * (n - len(r)) for r in rows]
+    data = [[Paragraph(_md_inline(c), S["cell"]) for c in r] for r in rows]
+    t = Table(data, colWidths=[_CONTENT_WIDTH / n] * n, repeatRows=1)
+    style = [("GRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#C9D3DF")),
+             ("VALIGN", (0, 0), (-1, -1), "TOP"),
+             ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#E3ECF7")),
+             ("LEFTPADDING", (0, 0), (-1, -1), 4), ("RIGHTPADDING", (0, 0), (-1, -1), 4)]
+    t.setStyle(TableStyle(style))
+    return t
 
 
 def _md(text: str) -> list:
-    """Small markdown -> flowables: headings, bullets, bold, and tables (rendered as bullet lines)."""
+    """Tiny markdown -> flowables (headings, bullets, numbered items, bold, pipe tables)."""
     out = []
-    header = None
-    for line in (text or "").splitlines():
-        line = line.strip()
+    lines = [ln.strip() for ln in (text or "").splitlines()]
+    i = 0
+    while i < len(lines):
+        line = lines[i]
         if not line:
-            header = None
+            i += 1
             continue
         if line.startswith("|"):
-            cells = [c.strip() for c in line.strip("|").split("|")]
-            if all(re.fullmatch(r":?-{2,}:?", c) for c in cells if c):
-                continue  # separator row
-            if header is None:
-                header = cells
-                continue
-            parts = [f"<b>{_rich(cells[0])}</b>"] + [
-                f"{_rich(h)}: {_rich(c)}" for h, c in zip(header[1:], cells[1:]) if c]
-            out.append(Paragraph("\u2022 " + " | ".join(parts), S["body"]))
+            block = []
+            while i < len(lines) and lines[i].startswith("|"):
+                block.append(lines[i])
+                i += 1
+            t = _md_table(block)
+            if t is not None:
+                out += [Spacer(1, 2), t, Spacer(1, 4)]
             continue
-        header = None
-        bare = line.lstrip("-*\u2022 ").strip()
-        if bare.startswith("#"):
-            out.append(Paragraph(_rich(bare.lstrip("# ")), S["h2"]))
-        elif line.startswith(("-", "*", "\u2022")):
-            out.append(Paragraph("\u2022 " + _rich(bare), S["body"]))
+        safe = _md_inline(line)
+        if line.startswith("#"):
+            out.append(Paragraph(safe.lstrip("# "), S["h2"]))
+        elif line.startswith(("- ", "* ", "\u2022")):
+            out.append(Paragraph("\u2022 " + safe.lstrip("-*\u2022 "), S["body"]))
+        elif line in ("---", "***", "___"):
+            pass
         else:
-            out.append(Paragraph(_rich(line), S["body"]))
+            out.append(Paragraph(safe, S["body"]))
+        i += 1
     return out
 
 
 def _table(rows: list[list], widths, header=True, zebra=True):
-    data = [[Paragraph(_rich(c), S["cell"]) for c in r] for r in rows]
+    data = [[Paragraph(escape(str(c)), S["cell"]) for c in r] for r in rows]
     t = Table(data, colWidths=widths, repeatRows=1 if header else 0)
     style = [("GRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#C9D3DF")),
              ("VALIGN", (0, 0), (-1, -1), "TOP"),
@@ -147,7 +182,7 @@ def _policy_section(a: dict) -> list:
     color = LABEL_COLORS.get(sc["label"], "#333333")
     flow = [Paragraph(escape(a["name"]), S["h1"]),
             Paragraph(f"<b>Coverage Clarity Score:</b> <font color='{color}' size='13'><b>{sc['score']}/100 "
-                      f"&#8211; {_rich(sc['label_display'])}</b></font>", S["body"]),
+                      f"&#8211; {escape(sc['label_display'])}</b></font>", S["body"]),
             _p(f"Scoring method: {sc['method']}"
                + (f" | model confidence {sc['confidence']:.0%}" if sc.get("confidence") else "")
                + f" | transparent rule score {sc['rule_score']}/100 ({sc['rule_label']})", "small"),
@@ -218,7 +253,7 @@ def generate_report(result: dict, profile: dict | None = None, qa_log: list | No
     if qa_log:
         flow.append(Paragraph("Your policy questions (from this session)", S["h1"]))
         for item in qa_log[-8:]:
-            flow.append(Paragraph(f"<b>Q:</b> {_rich(item['question'])}", S["body"]))
+            flow.append(Paragraph(f"<b>Q:</b> {escape(item['question'])}", S["body"]))
             flow += _md(item["answer"])
             flow.append(Spacer(1, 3))
 

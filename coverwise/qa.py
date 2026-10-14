@@ -23,16 +23,8 @@ take taken treatment treatments insurer company verify risks risk switching befo
 current proposed plan exactly know""".split())
 
 
-_CAT_LABEL = {"exclusions": "EXCLUSIONS - not covered", "waiting_period": "WAITING PERIODS",
-              "coverage": "COVERAGE / BENEFITS", "claims": "CLAIMS", "renewal": "RENEWAL / PORTABILITY",
-              "definitions": "DEFINITIONS", "copay_limits": "CO-PAYMENT / LIMITS", "premium": "PREMIUM / ELIGIBILITY"}
-
-
 def _context(hits) -> str:
-    """Page-tagged context; the section type tells the LLM whether a passage grants or excludes cover."""
-    return "\n\n".join(
-        f"[S{i}] ({c.citation}) [section type: {_CAT_LABEL.get(c.section_category, c.section_category)}]\n{c.text}"
-        for i, (c, _) in enumerate(hits, 1))
+    return "\n\n".join(f"[S{i}] ({c.citation})\n{c.text}" for i, (c, _) in enumerate(hits, 1))
 
 
 def _extractive_answer(question: str, hits) -> str:
@@ -121,15 +113,10 @@ def answer_question(index: PolicyIndex, question: str, llm: LLMClient | None = N
             ans = llm.chat(system_prompt(), render("rag_qa", question=question,
                                                    profile=profile or {}, context=_context(hits)))
         except LLMError as exc:
-            reason = "daily token limit reached" if "429" in str(exc) else "LLM unavailable"
-            if advice and analysis is not None:
-                ans = decision_support_answer(analysis)
-            else:
-                ans = _extractive_answer(question, hits)
-            ans += f"\n\n_(Offline answer - {reason}; try again later or switch model.)_"
+            ans = _extractive_answer(question, hits) + f"\n\n(LLM unavailable: {exc})"
     else:
         ans = _extractive_answer(question, hits)
-    ans = sanitize(ans).replace("\u3010", "[").replace("\u3011", "]")
+    ans = sanitize(ans)
     if advice:
         ans = ("**CoverWise does not make buy / switch / cancel decisions.** Here is what the document says "
                "so you can discuss it with a licensed advisor:\n\n" + ans)
@@ -192,7 +179,6 @@ def policy_summary(ext: dict, features: dict, score: dict, index: PolicyIndex,
             text = re.sub(r"\s*[\[\u3010]\s*(extraction\s*)?json\s*[\]\u3011]", "", text, flags=re.I)
             text = text.replace("\u3010", "[").replace("\u3011", "]")
             lines = [l.strip() for l in sanitize(text).splitlines() if l.strip().startswith(("-", "*", "\u2022"))]
-            lines = [l.replace("**", "").replace("__", "") for l in lines]  # plain text, no stray markdown
             if 6 <= len(lines) <= 25:
                 return ["- " + l.lstrip("-*\u2022 ").strip() for l in lines]
         except LLMError:

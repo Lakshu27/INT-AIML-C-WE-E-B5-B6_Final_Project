@@ -44,7 +44,6 @@ QA_TESTSET = RAW_DATA_DIR / "coverwise_policy_qa_risk_testset_60.csv"
 LLM_PROVIDER = _env("LLM_PROVIDER", "groq").lower()
 GROQ_API_KEY = _env("GROQ_API_KEY", "")
 GROQ_MODEL = _env("GROQ_MODEL", "openai/gpt-oss-120b")
-GROQ_FALLBACK_MODEL = _env("GROQ_FALLBACK_MODEL", "openai/gpt-oss-20b")  # used when the daily limit is hit
 GEMINI_API_KEY = _env("GEMINI_API_KEY", "")
 GEMINI_MODEL = _env("GEMINI_MODEL", "gemini-2.5-flash")
 LLM_TEMPERATURE = float(_env("LLM_TEMPERATURE", "0.1"))

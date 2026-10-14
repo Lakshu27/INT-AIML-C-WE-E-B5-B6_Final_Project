@@ -1,4 +1,7 @@
-"""Quick check that the LLM API call works (never prints your key)."""
+"""Quick check that the LLM API call works (never prints your key).
+
+Usage: python scripts/check_llm.py
+"""
 import sys
 import time
 from pathlib import Path
@@ -10,17 +13,17 @@ from coverwise.llm import LLMClient, LLMError  # noqa: E402
 key = config.GROQ_API_KEY if config.LLM_PROVIDER == "groq" else config.GEMINI_API_KEY
 env_file = config.ROOT_DIR / ".env"
 print(f".env found       : {env_file.exists()} ({env_file})")
-print(f"Provider         : {config.LLM_PROVIDER!r}")
+print(f"Provider         : {config.LLM_PROVIDER}")
 print(f"Key loaded       : {'yes (' + key[:4] + '...' + key[-4:] + ')' if key else 'NO - check .env'}")
 llm = LLMClient()
 print(f"Client           : {llm.label}")
 if not llm.available:
-    sys.exit("LLM not available -> fix .env (file name, provider, key)")
+    sys.exit("LLM not available -> fix .env (file name, provider, key) or pip install groq / google-genai")
 try:
     t = time.time()
-    reply = llm.chat("You are a test assistant.", "Reply with exactly: COVERWISE OK", max_tokens=20, retries=1)
+    reply = llm.chat("You are a test assistant.", "Reply with exactly: COVERWISE OK", max_tokens=300, retries=1)
     print(f"Plain call       : {reply.strip()!r} ({time.time() - t:.1f}s)")
-    out = llm.chat_json("Return JSON only.", 'Return {"status": "ok", "copayment_percentage": 5}', max_tokens=60)
+    out = llm.chat_json("Return JSON only.", 'Return {"status": "ok", "copayment_percentage": 5}', max_tokens=300)
     print(f"JSON call        : {out}")
     print("\nAPI call works - the app will use the LLM.")
 except LLMError as exc:
@@ -29,7 +32,8 @@ except LLMError as exc:
     if "401" in msg or "invalid_api_key" in msg.lower():
         print("-> Key invalid or revoked: create a new key and update GROQ_API_KEY in .env")
     elif "model" in msg.lower():
-        print("-> Model problem: set another current model in GROQ_MODEL")
+        print("-> Model unavailable: set GROQ_MODEL=openai/gpt-oss-120b (or openai/gpt-oss-20b) in .env;"
+              " current list: https://console.groq.com/docs/models")
     elif "429" in msg:
         print("-> Rate limit: wait a minute and retry")
     else:

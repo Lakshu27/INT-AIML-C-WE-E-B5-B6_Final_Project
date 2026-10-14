@@ -48,9 +48,8 @@ def _repeated_lines(pages: list[dict]) -> set[str]:
         return set()
     counter: Counter = Counter()
     for p in pages:
-        lines = [_normalise_line(l) for l in p["text"].splitlines() if l.strip()]
-        # headers/footers: page edges, plus any short line (content-order extraction can put them mid-page)
-        edge = set(lines[:3] + lines[-3:]) | {l for l in lines if len(l) < 140}
+        lines = [l.strip() for l in p["text"].splitlines() if l.strip()]
+        edge = set(lines[:3] + lines[-3:])
         counter.update(re.sub(r"\d+", "#", l) for l in edge)
     threshold = max(2, int(0.5 * len(pages)))
     return {l for l, c in counter.items() if c >= threshold}

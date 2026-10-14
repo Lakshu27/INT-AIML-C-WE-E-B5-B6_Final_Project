@@ -52,12 +52,3 @@ Sample report: `reports/sample_report_real_policies_offline.pdf`.
 
 With an LLM key, `scripts/evaluate_qa.py` adds LLM-as-judge scores (groundedness, clause accuracy,
 simplicity, risk caution, citation, hallucination flag) for each answer.
-
-## 4. With the LLM (Groq openai/gpt-oss-20b)
-* Extraction (hybrid LLM + rules): **100% (88/88)** on 5 PDFs; 69-160 s per policy.
-* RAG Q&A (32 questions): LLM-as-judge groundedness 4.88, clause accuracy 4.94, simplicity 4.94,
-  risk caution 4.88, citation 4.84 (1-5); judge-flagged hallucination 0%; unsafe advice 0%;
-  correct refusal 100%; false "not found" 0%; keyword recall 91% (formatting-normalised; 62% strict);
-  citation tags 94%.
-* Known gaps: SP-09 claim-process answer omitted the 24 h / 30 day timelines; SP-12 correct but
-  phrased differently from the expected keyword.

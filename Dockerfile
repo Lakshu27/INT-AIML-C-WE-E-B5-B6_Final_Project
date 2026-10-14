@@ -6,6 +6,7 @@ USER user
 ENV HOME=/home/user PATH=/home/user/.local/bin:$PATH
 WORKDIR /home/user/app
 COPY --chown=user requirements.txt .
+RUN pip install --no-cache-dir --user torch --index-url https://download.pytorch.org/whl/cpu
 RUN pip install --no-cache-dir --user -r requirements.txt
 COPY --chown=user . .
 RUN python scripts/train_model.py

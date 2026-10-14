@@ -10,8 +10,12 @@ Produce these sections in Markdown:
 ### Switching risks
 (new waiting periods, loss of continuity benefits, portability conditions)
 
-Compare BASE cover only. Optional covers, add-ons, riders and deductibles that apply only "if opted" (e.g. Global Health Cover per-claim deductible, Aggregate Deductible, Parenthood, room-rent modification) must not be presented as part of the policy - at most mention "available as optional add-on".
-Do not state a policy term (years) unless the table shows it. Use short bullet points only - NO markdown tables.
+Rules for the content:
+- List a point under "needs caution / appears weaker" ONLY if it is actually worse, newly restricted or riskier in the proposed policy. Do not list items that are the same in both policies there. If nothing is weaker, write "No clear downgrades found in the extracted data."
+- Use short bullet points. Do not use Markdown tables.
+- Write amounts as "Rs 5,00,000" style, not with the rupee symbol.
+- If a value is "Not found" in either policy, put it under "Unclear points", not under stronger/weaker.
+
 Never say "buy", "switch", "don't switch" or "cancel" as advice. End with: "Please confirm these points with the insurer or a licensed advisor before deciding."
 
 USER PROFILE: {profile}

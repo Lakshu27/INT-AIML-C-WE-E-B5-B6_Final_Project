@@ -10,8 +10,9 @@ GUVI | HCL Capstone · Domain: InsurTech / Health Insurance Analytics / Policy I
 | 🔗 **Live demo** | `https://huggingface.co/spaces/<your-username>/coverwise-ai` *(add after deployment)* |
 | 🎥 **Video walkthrough** | `<add link>` |
 | 📦 **Dataset resource pack** | https://drive.google.com/file/d/1csdcu8VjGlw_4hiRhCP9T51tBxysIzaC/view?usp=drive_link |
-| 🧪 **Extraction accuracy** | **88 / 88 fields (100%)** on 5 PDFs incl. 3 real Indian policy documents (offline and with LLM) |
-| ⚖️ **RAG Q&A (LLM-as-judge)** | groundedness **4.88/5** · clause accuracy **4.94/5** · hallucination **0%** · unsafe advice **0%** |
+| 💻 **GitHub repository** | https://github.com/Lakshu27/INT-AIML-C-WE-E-B5-B6_Final_Project |
+| 🧪 **Clause extraction accuracy** | **100%** — 47/47 fields with Groq LLM · 88/88 fields offline on 5 PDFs incl. 3 real Indian policy documents |
+| 💬 **RAG Q&A (LLM-as-judge)** | Groundedness **4.81/5** · correct refusal **100%** · unsafe advice **0%** · hallucination **3%** |
 | 🤖 **Best risk model** | Logistic Regression — CV macro-F1 **0.83**, test accuracy **0.84** |
 
 ---
@@ -186,6 +187,7 @@ CoverWise_AI/
 Public policy wordings, brochures, prospectus and Customer Information Sheets (CIS).
 
 **Tested with this project** (download and place in `data/sample_policies/`):
+These insurer PDFs are **not committed** to the repository (they belong to the insurers) — they are listed in `.gitignore`. Download them with the links below (HDFC ERGO blocks plain `wget`; use a browser or `wget --user-agent="Mozilla/5.0" ...`).
 
 | Role in demo | Document | Link |
 |---|---|---|
@@ -449,29 +451,45 @@ Bugs found on real documents and fixed during testing: a day-care procedure ("re
 | Correct "not found" on unanswerable questions | **100%** |
 | False "not found" on answerable questions | **0%** |
 
-### With LLM (Groq `openai/gpt-oss-20b`, hybrid LLM + rules)
+### With LLM (Groq `openai/gpt-oss-120b` for extraction, `openai/gpt-oss-20b` for Q&A)
+
+**Clause extraction** (`python scripts/evaluate_extraction.py`, ground-truth fictional policies)
 
 | Metric | Result |
 |---|---|
-| Extraction accuracy (LLM + rule cross-check) | **100% (88 / 88 fields, 5 PDFs)** |
-| LLM-as-judge – groundedness (1–5) | **4.88** |
-| LLM-as-judge – clause accuracy (1–5) | **4.94** |
-| LLM-as-judge – simplicity (1–5) | **4.94** |
-| LLM-as-judge – risk caution (1–5) | **4.88** |
-| LLM-as-judge – citation (1–5) | **4.84** |
-| Judge-flagged hallucination | **0%** |
-| Unsafe buy / switch advice | **0%** |
+| Field accuracy (LLM + rules) | **100% (47 / 47)** |
+| Processing time per policy (LLM mode) | ~70–110 s (4-page samples) · ~130–175 s (37–53-page real wordings) |
+
+**RAG Q&A** (`python scripts/evaluate_qa.py`, 32 questions incl. unanswerable ones)
+
+| Metric | Result |
+|---|---|
+| Answers with source citation | **91%** |
+| Unsafe buy / switch advice | **0%** (target 0%) |
 | Correct "not found" on unanswerable questions | **100%** |
 | False "not found" on answerable questions | **0%** |
-| Keyword recall on answerable questions (formatting-normalised) | **91%** |
-| Answers with `[S#]` source citation | **94%** (2 / 32 without a tag) |
-| Processing time per policy (LLM mode) | **69 – 160 s** (4–53 pages) |
+| Keyword recall on answerable questions | 65% *(strict exact-word match; paraphrased answers score lower — see judge clause accuracy)* |
+| Judge – groundedness (1–5) | **4.81** |
+| Judge – clause accuracy (1–5) | **4.91** |
+| Judge – simplicity (1–5) | **4.91** |
+| Judge – risk caution (1–5) | **4.84** |
+| Judge – citation (1–5) | **4.56** |
+| Judge-flagged hallucination | **3%** (1 of 32) |
 
-Notes for interpretation:
-* Extraction accuracy is the **hybrid** system's accuracy: on 13 safety-critical fields the verified rule value wins when the LLM disagrees, and every conflict is shown as a *Validation note*.
-* Keyword recall uses formatting-only normalisation (spaces, ₹, thousand separators, Unicode) — `python scripts/evaluate_qa.py --rescore reports/qa_eval_groq.csv` reproduces it without LLM calls. Raw strict-match recall was 62% because the LLM paraphrases (`2 %`, `₹40,000`, `newborn`).
-* Remaining misses: SP-12 answered "not capped" (correct, but the keyword expected "no capping"); SP-09 described the claim process without the 24-hour / 30-day timelines (a genuine gap).
-* Evaluations ran on `gpt-oss-20b` to stay within the Groq free-tier daily quota; the demo uses `gpt-oss-120b`.
+Raw results: `reports/extraction_eval_groq.csv`, `reports/qa_eval_groq.csv`.
+
+### Risk scoring model (`python scripts/train_model.py`, 500-row synthetic dataset, held-out test)
+
+| Model | CV macro-F1 (5-fold) | Test accuracy | Test macro-F1 |
+|---|---|---|---|
+| **Logistic Regression (selected)** | **0.829 ± 0.039** | **0.84** | **0.775** |
+| Gradient Boosting | 0.751 ± 0.072 | 0.79 | 0.715 |
+| Decision Tree | 0.660 ± 0.052 | 0.73 | 0.657 |
+| Random Forest | 0.641 ± 0.085 | 0.81 | 0.670 |
+| Transparent rule-based baseline | – | 0.85 | 0.785 |
+
+Per-class (best model): Strong Coverage F1 0.90 · Moderate Coverage F1 0.88 · Caution Required F1 0.79 · High Risk F1 0.53 (only 7 test rows — the smallest class).
+Coverage Clarity Score regressor: MAE **3.18**, R² **0.957**.
 
 ### Mapping to the brief's evaluation metrics
 
@@ -484,16 +502,16 @@ Notes for interpretation:
 | Citation correctness / grounding | Citation rate + judge "groundedness", "citation" |
 | Hallucination control & refusal | Correct-refusal rate + judge "hallucination" |
 | Dashboard usability / report readability | Streamlit app, PDF report |
-| Processing time | `processing_seconds` per policy: ~0.3–2 s offline, 69–160 s with the LLM (11–53 pages) |
+| Processing time | `processing_seconds` per policy (~0.3–2 s offline for 11–53 pages) |
 | Privacy & anonymization | PII masking in `text_clean.anonymize`, unit-tested |
 
 ## 17. Real Policy Analysis Results
 
-Offline analysis with user-entered sum insured (₹5 L current, ₹10 L proposed):
+LLM-mode analysis (Groq) with user-entered values: sum insured ₹5 L → ₹10 L, premium ₹12,000 → ₹18,000, age 34, planning a child:
 
 | Aspect | Arogya Sanjeevani (current) | my: Optima Secure (proposed) |
 |---|---|---|
-| Coverage Clarity Score | **36 / 100 – High Risk / Needs Advisor Review** | **69 / 100 – Moderate Coverage** |
+| Coverage Clarity Score | **36 / 100 – High Risk / Needs Advisor Review** (7 risk flags) | **70 / 100 – Moderate Coverage** (4 risk flags) |
 | Co-payment | 5% on all claims (p.13) | none found |
 | Room rent | 2% of SI, max ₹5,000/day (p.6) | At Actuals unless the schedule says otherwise (p.11) |
 | ICU | 5% of SI, max ₹10,000/day (p.6) | At Actuals (p.11) |
@@ -506,6 +524,9 @@ Offline analysis with user-entered sum insured (₹5 L current, ₹10 L proposed
 | Maternity | excluded (Excl18) | excluded (Excl18) |
 | Domiciliary / OPD | excluded | domiciliary covered / OPD excluded |
 | Claim settlement | within 30 days | within 15 days |
+
+Comparison result: **9 aspects improved, 0 weaker**, 2 unclear (restoration on the current policy, newborn cover) · premium +50%.
+Because the user is planning a child, the app adds the caution *"maternity cover is not found in the proposed policy"* and a matching advisor question.
 
 Switching risks flagged: waiting periods restart (portability credit only up to the previous SI), waiting periods apply afresh on the increased SI, possible loss of accumulated bonus, keep continuity until the new policy is issued. *This is factual decision support — not a recommendation.*
 
@@ -521,7 +542,10 @@ Switching risks flagged: waiting periods restart (portability credit only up to 
 7. User-specific policy understanding (profile + your Q&A)
 8. Responsible-AI disclaimer and limitations
 
-Samples: `reports/sample_report_offline.pdf` (fictional policies) and `reports/sample_report_real_policies_offline.pdf` (Arogya vs Optima).
+Samples:
+- `reports/sample_report_llm.pdf` — fictional Nilgiri policies, LLM mode
+- `reports/sample_report_real_policies_llm.pdf` — Arogya Sanjeevani vs my: Optima Secure, LLM mode, includes the user's Q&A session
+- `reports/sample_report_offline.pdf`, `reports/sample_report_real_policies_offline.pdf` — same inputs without an LLM (rule-based mode)
 
 ## 19. Deployment
 
@@ -607,7 +631,11 @@ Covers: sentence splitting, PII masking, JSON parsing, advice detection and sani
 | "offline (rule-based)" shown although a key is set | Run `python scripts/check_llm.py`; the file must be named `.env` (not `.env.example` / `.env.txt`) in the project root, `LLM_PROVIDER` must match the key, then restart Streamlit |
 | `401 invalid_api_key` | Key revoked or mistyped - create a new key, paste after `=` with no quotes/spaces |
 | Groq `404 model_not_found` / *decommissioned* | Set `GROQ_MODEL=openai/gpt-oss-120b` (or `openai/gpt-oss-20b`); check https://console.groq.com/docs/models |
-| `429 rate limit` | Wait a minute; the client retries automatically; try a smaller model |
+| `429 rate limit` (tokens per minute) | Wait a minute; the client retries automatically |
+| `429 ... tokens per day (TPD)` | Groq free tier daily limit per model reached — switch `GROQ_MODEL` to `openai/gpt-oss-20b` (separate quota) or wait for the reset; avoid running evaluations on demo day |
+| `ModuleNotFoundError` (e.g. `pdfplumber`) | The virtual environment is not active — run `source .venv/bin/activate` (prompt must start with `(.venv)`) |
+| `wget` gets `406 Not Acceptable` from an insurer site | Download in the browser, or add a browser user-agent: `wget --user-agent="Mozilla/5.0" ...` |
+| ₹ sign or hyphens appear as ■ in the PDF | Fixed in `report.py` (characters normalised to "Rs" and "-") — pull the latest code |
 | Slow first run | The embedding model downloads once (~90 MB); or set `USE_EMBEDDINGS=0` |
 | "almost no text could be extracted" | Scanned PDF → install Tesseract and keep `ENABLE_OCR=1` |
 | Model load warning / sklearn version mismatch | It retrains automatically; or run `python scripts/train_model.py` |
@@ -634,13 +662,13 @@ Covers: sentence splitting, PII masking, JSON parsing, advice detection and sani
 
 | # | Deliverable | Status |
 |---|---|---|
-| 1 | Python codebase (GitHub) | ✅ code ready – push to GitHub |
+| 1 | Python codebase (GitHub) | ✅ https://github.com/Lakshu27/INT-AIML-C-WE-E-B5-B6_Final_Project |
 | 2 | Streamlit dashboard | ✅ `app/streamlit_app.py` |
 | 3 | Deployed demo link (Hugging Face Spaces) | ⏳ deploy and add link at the top |
-| 4 | Documentation & README | ✅ this file + `docs/` |
+| 4 | Documentation & README | ✅ this file + `docs/` (incl. LLM evaluation results) |
 | 5 | Video walkthrough | ⏳ record and add link |
 | 6 | Sample anonymized policy documents / inputs | ✅ `data/sample_policies/` |
-| 7 | Sample output reports | ✅ `reports/` |
+| 7 | Sample output reports | ✅ `reports/` (LLM mode + offline mode) |
 | 8 | Presentation deck (optional) | ⏳ optional |
 | 9 | Dataset resource link section | ✅ section 7 + `docs/DATA_SOURCES.md` |
 

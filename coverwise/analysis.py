@@ -107,9 +107,6 @@ ASPECTS = [  # (label, extraction field or feature key, kind, better)
 
 
 def _get(analysis: dict, key: str):
-    if key in ("f:sum_insured", "f:annual_premium"):  # show the real value, not the model-clipped one
-        src = key[2:]
-        return analysis["overrides"].get(src) or analysis["extraction"].get(src) or analysis["features"].get(src)
     if key.startswith("f:"):
         return analysis["features"].get(key[2:])
     return analysis["extraction"].get(key)
@@ -167,7 +164,7 @@ def compare_policies(current: dict, proposed: dict, profile: dict | None = None,
     unclear = [r["Aspect"] for r in rows if r["Change"] == "Unclear"]
 
     # premium vs coverage
-    pc, pp = _get(current, "f:annual_premium"), _get(proposed, "f:annual_premium")
+    pc, pp = current["features"]["annual_premium"], proposed["features"]["annual_premium"]
     prem_change = (pp - pc) / pc * 100 if pc else 0
     prem_known = all((x["extraction"].get("annual_premium") or x["overrides"].get("annual_premium"))
                      for x in (current, proposed))
@@ -191,7 +188,7 @@ def compare_policies(current: dict, proposed: dict, profile: dict | None = None,
     if _get(proposed, "ped_waiting_period_months") and (_get(current, "ped_waiting_period_months") or 0) \
             < (_get(proposed, "ped_waiting_period_months") or 0):
         switching.insert(0, "The proposed policy has a LONGER pre-existing disease waiting period.")
-    if (_get(proposed, "f:sum_insured") or 0) > (_get(current, "f:sum_insured") or 0):
+    if (proposed["features"]["sum_insured"] > current["features"]["sum_insured"]):
         switching.append("For the increased part of the sum insured, waiting periods usually apply afresh.")
 
     profile = profile or {}
@@ -208,7 +205,7 @@ def compare_policies(current: dict, proposed: dict, profile: dict | None = None,
         try:
             narrative = sanitize(llm.chat(system_prompt(), render(
                 "comparison", profile=profile, table=rows,
-                current=_slim(current["extraction"]), proposed=_slim(proposed["extraction"])), max_tokens=4000))
+                current=_slim(current["extraction"]), proposed=_slim(proposed["extraction"]))))
         except LLMError:
             narrative = None
     return {"rows": rows, "improved": improved, "worse": worse, "unclear": unclear,
