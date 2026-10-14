@@ -55,9 +55,18 @@ with st.sidebar:
     default_model = config.GROQ_MODEL if provider == "groq" else config.GEMINI_MODEL
     api_key, model = "", ""
     if provider != "none":
-        api_key = st.text_input("API key (kept only in this session)", value=default_key, type="password")
+        # Never put the server's key into the widget: a password field can be revealed
+        # (eye icon) by any visitor of a public deployment.
+        user_key = st.text_input(
+            "API key (optional, kept only in this session)", value="", type="password",
+            placeholder="Using the server key" if default_key else "Paste your API key")
+        api_key = user_key.strip() or default_key
         model = st.text_input("Model", value=default_model)
-        if not api_key:
+        if user_key:
+            st.caption("Using the key you entered for this session.")
+        elif default_key:
+            st.caption("Using the key configured on the server (hidden).")
+        else:
             st.caption("No key -> the app falls back to offline rule-based mode.")
 
     st.header("2. Your profile")
